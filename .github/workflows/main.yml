@@ -1,0 +1,23 @@
+name: main
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  test_schedule:
+    runs-on: ubuntu-latest
+    steps:
+      - name: repository checkout
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+          path: next_study
+      - name: Add date and push
+        run: |
+          cd next_study
+          date >> date.txt
+          git add .
+          git config --global user.email "didwoans30@gmail.com"
+          git config --global user.name "JMyang30"
+          git commit -m "planting grass"
+          git push
